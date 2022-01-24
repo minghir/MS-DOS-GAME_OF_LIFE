@@ -1,0 +1,114 @@
+MAKE Version 3.6  Copyright (c) 1992 Borland International
+
+Available memory 6961712 bytes
+
+	bcc -O -c -Ic:\App\borlandc\include;c:\app\tc\src\pong\lvga -Lc:\App\borlandc\lib lvga\keyb.c
+Borland C++  Version 3.1 Copyright (c) 1992 Borland International
+lvga\keyb.c:
+
+	Available memory 4139196
+	bcc -O -c -Ic:\App\borlandc\include;c:\app\tc\src\pong\lvga -Lc:\App\borlandc\lib lvga\lvga.c
+Borland C++  Version 3.1 Copyright (c) 1992 Borland International
+lvga\lvga.c:
+Warning lvga\lvga.c 678: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 679: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 680: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 681: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 682: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 683: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 684: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 685: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 686: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 687: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 688: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 689: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 690: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 691: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 692: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 693: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 694: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 695: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 696: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 697: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 698: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 699: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 700: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 701: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 702: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 703: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 704: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 705: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 706: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 707: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 708: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 709: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 710: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 711: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 712: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 713: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 714: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 715: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 716: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 717: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 718: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 719: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 720: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 721: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 722: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 723: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 724: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 725: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 726: Call to function 'strcpy' with no prototype in function init_chars_15
+Warning lvga\lvga.c 759: Parameter 'bg_color' is never used in function put_char_15
+Warning lvga\lvga.c 764: Call to function 'strlen' with no prototype in function put_str_15
+
+	Available memory 4034764
+	bcc -O -c -Ic:\App\borlandc\include;c:\app\tc\src\pong\lvga -Lc:\App\borlandc\lib lvga\ini.c
+Borland C++  Version 3.1 Copyright (c) 1992 Borland International
+lvga\ini.c:
+
+	Available memory 4091000
+	bcc -O -c -Ic:\App\borlandc\include;c:\app\tc\src\pong\lvga -Lc:\App\borlandc\lib lvga\mouse.c
+Borland C++  Version 3.1 Copyright (c) 1992 Borland International
+lvga\mouse.c:
+
+	Available memory 4089908
+	bcc -O -Ic:\App\borlandc\include;c:\app\tc\src\pong\lvga -Lc:\App\borlandc\lib golvga.c keyb.obj lvga.obj ini.obj mouse.obj
+Borland C++  Version 3.1 Copyright (c) 1992 Borland International
+golvga.c:
+Warning golvga.c 66: Call to function 'InstallMouse' with no prototype in function initialize
+Warning golvga.c 78: Call to function 'init_chars_15' with no prototype in function initialize
+Warning golvga.c 92: Call to function 'exit_graphic' with no prototype in function quit
+Warning golvga.c 170: Call to function 'GetPosX' with no prototype in function print_fps
+Warning golvga.c 175: Call to function 'GetPosY' with no prototype in function print_fps
+Warning golvga.c 184: Call to function 'GetPosX' with no prototype in function print_fps
+Warning golvga.c 185: Call to function 'GetPosY' with no prototype in function print_fps
+Warning golvga.c 245: Call to function 'GetMouseStatus' with no prototype in function print_fps
+Warning golvga.c 246: Call to function 'GetPosX' with no prototype in function print_fps
+Warning golvga.c 246: Call to function 'GetPosY' with no prototype in function print_fps
+Warning golvga.c 314: Call to function 'print_fps' with no prototype in function draw
+Warning golvga.c 419: Call to function 'pause' with no prototype in function clear_table
+Warning golvga.c 726: Call to function 'play' with no prototype in function on_usr_input
+Warning golvga.c 728: Call to function 'pause' with no prototype in function on_usr_input
+Warning golvga.c 733: Call to function 'clear_table' with no prototype in function on_usr_input
+Warning golvga.c 738: Call to function 'random_table' with no prototype in function on_usr_input
+Warning golvga.c 743: Call to function 'quit' with no prototype in function on_usr_input
+Warning golvga.c 747: Call to function 'save_file' with no prototype in function on_usr_input
+Warning golvga.c 752: Call to function 'load_file' with no prototype in function on_usr_input
+Warning golvga.c 760: Call to function 'GetMouseStatus' with no prototype in function on_usr_input
+Warning golvga.c 761: Call to function 'GetPosX' with no prototype in function on_usr_input
+Warning golvga.c 762: Call to function 'GetPosY' with no prototype in function on_usr_input
+Warning golvga.c 764: Call to function 'GetButton' with no prototype in function on_usr_input
+Warning golvga.c 774: Call to function 'GetButton' with no prototype in function on_usr_input
+Warning golvga.c 831: Call to function 'show_buffer' with no prototype in function main
+Warning golvga.c 834: Call to function 'get_msec' with no prototype in function main
+Warning golvga.c 894: Call to function 'on_usr_input' with no prototype in function main
+Warning golvga.c 896: Call to function 'get_msec' with no prototype in function main
+Warning golvga.c 899: Call to function 'print_fps' with no prototype in function main
+Warning golvga.c 902: Call to function 'get_msec' with no prototype in function main
+Warning golvga.c 912: Call to function 'get_msec' with no prototype in function main
+Warning golvga.c 927: Call to function 'show_buffer' with no prototype in function main
+Warning golvga.c 935: Undefined structure 'ini_t'
+Turbo Link  Version 5.1 Copyright (c) 1992 Borland International
+
+	Available memory 4011744

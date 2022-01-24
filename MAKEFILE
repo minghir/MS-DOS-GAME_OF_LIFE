@@ -1,0 +1,43 @@
+# Makefile for Borland C 3.1
+
+CC = c:\app\tc\bin\tcc
+#CC = bcc
+
+IDIR = c:\app\tc\include;c:\app\tc\src\pong\lvga
+#IDIR = App\DJGPP\include;c:\app\tc\src\pong\lvga
+#IDIR = c:\App\borlandc\include;c:\app\tc\src\pong\lvga
+LDIR = c:\app\tc\lib
+#LDIR = c:\App\DJGPP\lib
+#LDIR = c:\App\borlandc\lib
+
+EXEFLAGS = -O -mc -I$(IDIR) -L$(LDIR)
+FLAGS = -O -mc -c -I$(IDIR) -L$(LDIR)
+
+SOURCES = lvga\keyb.c  lvga\lvga.c lvga\ini.c lvga\mouse.c
+OBJS =  keyb.obj lvga.obj ini.obj mouse.obj
+
+#all:  $(OBJS)  golvga.exe
+all: keyb.obj lvga.obj ini.obj mouse.obj golvga.exe mefisto.exe
+
+golvga.exe: golvga.c $(SOURCES)
+        $(CC) $(EXEFLAGS) golvga.c $(OBJS)
+
+mefisto.exe: mefisto.c $(SOURCES)
+        $(CC) $(EXEFLAGS) mefisto.c $(OBJS)
+
+keyb.obj: lvga\keyb.c
+        $(CC) $(FLAGS) lvga\keyb.c
+
+mouse.obj: lvga\mouse.c
+        $(CC) $(FLAGS) lvga\mouse.c
+
+lvga.obj: lvga\lvga.c
+        $(CC) $(FLAGS) lvga\lvga.c
+
+ini.obj: lvga\ini.c
+        $(CC) $(FLAGS) lvga\ini.c
+
+clean:
+        del *.obj
+        del golvga.exe
+        del mefisto.exe

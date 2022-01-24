@@ -1,0 +1,4 @@
+q pressed
+after exit graphic
+after exit key
+after free table
