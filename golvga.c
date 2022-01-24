@@ -417,7 +417,7 @@ void load_file(){
 	int i = 0,j;
 	int files_no;
 	
-	char **files;
+	char *files[8];
 	char *tmp;// = *files;
 	//char files[255][8];
 	struct dirent *entry;
@@ -506,12 +506,17 @@ void load_file(){
 		show_buffer();
 	}
 	
+        /*
 	tmp = files;
 	while(tmp != NULL){
 		free(tmp);
 		tmp++;
 	}
 	//free(files);
+         */
+        
+        for(i=0;i<=files_no;i++)
+            free(files[i]);
 
 	closedir(dir);
 	

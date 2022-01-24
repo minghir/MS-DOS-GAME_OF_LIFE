@@ -3,7 +3,7 @@
 CC = c:\app\tc\bin\tcc
 #CC = bcc
 
-IDIR = c:\app\tc\include;c:\app\tc\src\pong\lvga
+IDIR = c:\app\tc\include;F:\puzzles\lvga
 #IDIR = App\DJGPP\include;c:\app\tc\src\pong\lvga
 #IDIR = c:\App\borlandc\include;c:\app\tc\src\pong\lvga
 LDIR = c:\app\tc\lib
