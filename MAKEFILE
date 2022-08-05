@@ -18,14 +18,14 @@ SOURCES = lvga\keyb.c  lvga\lvga.c lvga\ini.c lvga\mouse.c
 OBJS =  keyb.obj lvga.obj ini.obj mouse.obj
 
 #all:  $(OBJS)  golvga.exe
-all: keyb.obj lvga.obj ini.obj mouse.obj golvga.exe mefisto.exe color2.exe color.exe
+all: keyb.obj lvga.obj ini.obj mouse.obj golvga.exe mefisto.exe color2.exe
 
 golvga.exe: golvga.c $(SOURCES)
         $(CC) $(EXEFLAGS) golvga.c $(OBJS)
 
 color2.exe: color2.c $(SOURCES)
         $(CC) $(EXEFLAGS) color2.c $(OBJS)
-		
+
 color.exe: color.c $(SOURCES)
         $(CC) $(EXEFLAGS) color.c $(OBJS)
 
@@ -48,5 +48,5 @@ clean:
         del *.obj
         del golvga.exe
         del mefisto.exe
-		del color.exe
-		del color2.exe
+                del color.exe
+                del color2.exe
