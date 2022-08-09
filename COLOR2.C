@@ -19,7 +19,7 @@
 int zoom = 30;
 float a_ratio = 1.2;
 unsigned long int tstart,tend, fps_counter = 0, fps_count = 0;
-int delay_msec = 200;
+int delay_msec = 400;
 int grid = 1;
 
 int colors[6];
@@ -127,6 +127,9 @@ void init_table(){
 
 void calculate_table2(int cell){
 
+	if(old_color == current_color)
+			return;
+
 	if(table[cell] == old_color ){
 		table[cell] = current_color;	
 	}else{
@@ -149,6 +152,8 @@ void calculate_table2(int cell){
 
 bool usr_input(){
 	int x,y;
+	int tstart_upd,tend_upd;
+	
 					if(get_key_status(SCAN_Q) || get_key_status(SCAN_ESC)){
                         return false;
 					}
@@ -156,49 +161,50 @@ bool usr_input(){
 					if(get_key_status(SCAN_R)){
                         init_table();
 						//draw();
-						delay(150);
+						return true;
+						
 					}
 					
 					if(get_key_status(SCAN_1)){
 						old_color=current_color;
 						current_color = colors[0];
                         calculate_table2(0);
-						delay(150);
+						return true;
 					}
 					
 					if(get_key_status(SCAN_2)){
 						old_color=current_color;
 						current_color = colors[1];
                         calculate_table2(0);
-						delay(150);
+						return true;
 					}
 					
 					if(get_key_status(SCAN_3)){
 						old_color=current_color;
 						current_color = colors[2];
                         calculate_table2(0);
-						delay(150);
+						return true;
 					}
 					
 					if(get_key_status(SCAN_4)){
 						old_color=current_color;
 						current_color = colors[3];
                         calculate_table2(0);
-						delay(150);
+						return true;
 					}
 					
 					if(get_key_status(SCAN_5)){
 						old_color=current_color;
 						current_color = colors[4];
                         calculate_table2(0);
-						delay(150);
+						return true;
 					}
 					
 					if(get_key_status(SCAN_6)){
 						old_color=current_color;
 						current_color = colors[5];
                         calculate_table2(0);
-						delay(150);
+						return true;
 					}
 					
 					GetMouseStatus();
@@ -206,12 +212,12 @@ bool usr_input(){
 					y = GetPosY();
 					
 					if(GetButton() == 1){
+						delay(150);
 						if(y>=170 && y<= 185){
 							if((x >= (pan_horiz+30)*a_ratio ) && (x <= (pan_horiz+ 45)*a_ratio)){
 								old_color=current_color;
 								current_color = colors[0];
 								calculate_table2(0);
-								delay(150);
 								return true;
 							}
 							
@@ -219,7 +225,6 @@ bool usr_input(){
 								old_color=current_color;
 								current_color = colors[1];
 								calculate_table2(0);
-								delay(150);
 								return true;
 							}
 							
@@ -227,7 +232,6 @@ bool usr_input(){
 								old_color=current_color;
 								current_color = colors[2];
 								calculate_table2(0);
-								delay(150);
 								return true;
 							}
 							
@@ -235,7 +239,6 @@ bool usr_input(){
 								old_color=current_color;
 								current_color = colors[3];
 								calculate_table2(0);
-								delay(150);
 								return true;
 							}
 							
@@ -243,7 +246,6 @@ bool usr_input(){
 								old_color=current_color;
 								current_color = colors[4];
 								calculate_table2(0);
-								delay(150);
 								return true;
 							}
 							
@@ -251,7 +253,6 @@ bool usr_input(){
 								old_color=current_color;
 								current_color = colors[5];
 								calculate_table2(0);
-								delay(150);
 								return true;
 							}
 							
@@ -264,17 +265,19 @@ bool usr_input(){
 }
 
 int main(){
+				
         initialize();
 		randomize(); 
 		init_table();
                 while(1){
                  					
-						if(!usr_input())
-							break;
-
-                        draw();
-                        show_buffer();
+					if(!usr_input())
+						break;
+					
+					draw();
+					show_buffer();
                 }
+				
                 unhook_keyb_int();
                 delay(100);
                 exit_graphic();
