@@ -155,50 +155,50 @@ bool usr_input(){
 					
 					if(get_key_status(SCAN_R)){
                         init_table();
-						draw();
-						delay(200);
+						//draw();
+						delay(150);
 					}
 					
 					if(get_key_status(SCAN_1)){
 						old_color=current_color;
 						current_color = colors[0];
                         calculate_table2(0);
-						delay(200);
+						delay(150);
 					}
 					
 					if(get_key_status(SCAN_2)){
 						old_color=current_color;
 						current_color = colors[1];
                         calculate_table2(0);
-						delay(200);
+						delay(150);
 					}
 					
 					if(get_key_status(SCAN_3)){
 						old_color=current_color;
 						current_color = colors[2];
                         calculate_table2(0);
-						delay(200);
+						delay(150);
 					}
 					
 					if(get_key_status(SCAN_4)){
 						old_color=current_color;
 						current_color = colors[3];
                         calculate_table2(0);
-						delay(200);
+						delay(150);
 					}
 					
 					if(get_key_status(SCAN_5)){
 						old_color=current_color;
 						current_color = colors[4];
                         calculate_table2(0);
-						delay(200);
+						delay(150);
 					}
 					
 					if(get_key_status(SCAN_6)){
 						old_color=current_color;
 						current_color = colors[5];
                         calculate_table2(0);
-						delay(200);
+						delay(150);
 					}
 					
 					GetMouseStatus();
@@ -211,7 +211,7 @@ bool usr_input(){
 								old_color=current_color;
 								current_color = colors[0];
 								calculate_table2(0);
-								delay(200);
+								delay(150);
 								return true;
 							}
 							
@@ -219,7 +219,7 @@ bool usr_input(){
 								old_color=current_color;
 								current_color = colors[1];
 								calculate_table2(0);
-								delay(200);
+								delay(150);
 								return true;
 							}
 							
@@ -227,14 +227,15 @@ bool usr_input(){
 								old_color=current_color;
 								current_color = colors[2];
 								calculate_table2(0);
-								//delay(200);
+								delay(150);
+								return true;
 							}
 							
 							if((x >= (pan_horiz+76)*a_ratio ) && (x <= (pan_horiz+ 90)*a_ratio)){
 								old_color=current_color;
 								current_color = colors[3];
 								calculate_table2(0);
-								delay(200);
+								delay(150);
 								return true;
 							}
 							
@@ -242,7 +243,7 @@ bool usr_input(){
 								old_color=current_color;
 								current_color = colors[4];
 								calculate_table2(0);
-								delay(200);
+								delay(150);
 								return true;
 							}
 							
@@ -250,7 +251,7 @@ bool usr_input(){
 								old_color=current_color;
 								current_color = colors[5];
 								calculate_table2(0);
-								delay(200);
+								delay(150);
 								return true;
 							}
 							
