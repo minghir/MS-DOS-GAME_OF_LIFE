@@ -3,7 +3,7 @@
 CC = c:\app\tc\bin\tcc
 #CC = bcc
 
-IDIR = c:\app\tc\include;F:\puzzles\lvga
+#IDIR = c:\app\tc\include;F:\puzzles\lvga
 IDIR = c:\app\tc\include;C:\APP\puzzles\lvga
 #IDIR = App\DJGPP\include;c:\app\tc\src\pong\lvga
 #IDIR = c:\App\borlandc\include;c:\app\tc\src\pong\lvga
@@ -18,13 +18,13 @@ SOURCES = lvga\keyb.c  lvga\lvga.c lvga\ini.c lvga\mouse.c
 OBJS =  keyb.obj lvga.obj ini.obj mouse.obj
 
 #all:  $(OBJS)  golvga.exe
-all: keyb.obj lvga.obj ini.obj mouse.obj golvga.exe mefisto.exe color2.exe
+all: keyb.obj lvga.obj ini.obj mouse.obj golvga.exe mefisto.exe flood.exe
 
 golvga.exe: golvga.c $(SOURCES)
         $(CC) $(EXEFLAGS) golvga.c $(OBJS)
 
-color2.exe: color2.c $(SOURCES)
-        $(CC) $(EXEFLAGS) color2.c $(OBJS)
+flood.exe: flood.c $(SOURCES)
+        $(CC) $(EXEFLAGS) flood.c $(OBJS)
 
 color.exe: color.c $(SOURCES)
         $(CC) $(EXEFLAGS) color.c $(OBJS)
@@ -48,5 +48,5 @@ clean:
         del *.obj
         del golvga.exe
         del mefisto.exe
-                del color.exe
-                del color2.exe
+        del color.exe
+		del flood.exe
