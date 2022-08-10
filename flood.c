@@ -228,6 +228,15 @@ bool usr_input(){
 					y = GetPosY();
 					
 					if(GetButton() == 1){
+						
+						while(1){
+								GetMouseStatus();
+								if(GetButton() == 1) {
+									//delay(20);
+								}else{
+									break;
+								}
+							}
 					
 						if(y>=170 && y<= 185){
 							if((x >= (pan_horiz+30)*a_ratio ) && (x <= (pan_horiz+ 45)*a_ratio)){
@@ -259,12 +268,13 @@ bool usr_input(){
 								change_color(colors[5]);
 								return true;
 							}
-							
 						}else{
 							return true;
 						}
 						
 					}
+					
+					
 	return true;
 }
 
