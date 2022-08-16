@@ -16,9 +16,15 @@ FLAGS = -O -mc -c -I$(IDIR) -L$(LDIR)
 
 SOURCES = lvga\keyb.c  lvga\lvga.c lvga\ini.c lvga\mouse.c
 OBJS =  keyb.obj lvga.obj ini.obj mouse.obj
+EXES1 = color.exe golvga.exe mefisto.exe flood.exe colorl.exe 
+#EXES2 = pongvga2.exe
 
 #all:  $(OBJS)  golvga.exe
-all: keyb.obj lvga.obj ini.obj mouse.obj golvga.exe mefisto.exe flood.exe
+#all: $(test) keyb.obj lvga.obj ini.obj mouse.obj golvga.exe mefisto.exe flood.exe colorl.exe 
+all: $(OBJS) $(EXES1) $(EXES2)
+
+colorl.exe: colorl.c $(SOURCES)
+        $(CC) $(EXEFLAGS) colorl.c $(OBJS)
 
 golvga.exe: golvga.c $(SOURCES)
         $(CC) $(EXEFLAGS) golvga.c $(OBJS)
@@ -31,6 +37,9 @@ color.exe: color.c $(SOURCES)
 
 mefisto.exe: mefisto.c $(SOURCES)
         $(CC) $(EXEFLAGS) mefisto.c $(OBJS)
+		
+pongvga2.exe: pongvga2.c $(SOURCES)
+        $(CC) $(EXEFLAGS) pongvga2.c $(OBJS)
 
 keyb.obj: lvga\keyb.c
         $(CC) $(FLAGS) lvga\keyb.c
@@ -46,7 +55,5 @@ ini.obj: lvga\ini.c
 
 clean:
         del *.obj
-        del golvga.exe
-        del mefisto.exe
-        del color.exe
-		del flood.exe
+        del *.exe
+        
