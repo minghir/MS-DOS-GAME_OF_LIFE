@@ -171,7 +171,7 @@ void replace_line(){
 		table[line_found+i] = colors[random(5)];
 		draw();
 		show_buffer();
-		delay(120);
+		//delay(120);
 	}
 	
 	line_found = -1;
@@ -184,7 +184,7 @@ void replace_col(){
 		table[col_found+(i*5)] = colors[random(5)];
 		draw();
 		show_buffer();
-		delay(120);
+		//delay(120);
 	}
 	col_found = -1;
 }
@@ -248,7 +248,10 @@ bool usr_input(){
 					if( get_key_status(SCAN_ENTER) ){
 
 						while(get_key_status(SCAN_ENTER)){}
-							selected_cell = selector;
+							if(selected_cell > -1)
+								selected_cell = -1;
+							else
+								selected_cell = selector;
 							check();
 						return true;
 					}
