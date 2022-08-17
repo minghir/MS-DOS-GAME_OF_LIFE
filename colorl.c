@@ -15,20 +15,18 @@
 #define UP 2
 #define DOWN 3
 
+#define MWHITE  30
+
 int zoom = 30;
 float a_ratio = 1.2;
 
 int colors[6];
 int table[100];
 
-//int current_color;
-//int old_color;
-
 int pan_vert = 13;
 int pan_horiz = 60;
 
 int clicks = 0;
-int max_score = 17;
 
 int line_found = -1;
 int col_found = -1;
@@ -38,44 +36,22 @@ int selected_cell = -1;
 
 void initialize(void){
 	
-	InstallMouse();
-	SetMousePosi(1,1);
-	
     initialize_graphics(true);
     ctrlbrk(ctrlbrk_handler);
     hook_keyb_int();
     init_chars_15();
 	
-	colors[0] = 42;
-	colors[1] = 35;
-	colors[2] = 52;
-	colors[3] = 49;
-	colors[4] = 44;
-	//colors[5] = 27;
+	colors[0] = 6;//42;
+	colors[1] = 9;
+	colors[2] = 2;
+	colors[3] = 12;
+	colors[4] = 13;
 }
-
-void end_win(){
-	put_str_15(150,190,"WINNER",WHITE,240);
-}
-
-void end_loose(){
-	put_str_15(150,190,"LOOSER",WHITE,240);
-}
-
 
 void print_score(){
 	char fps_c[10];
 	sprintf(fps_c,"%u",clicks );
-	put_str_15(153,170,fps_c,WHITE,240);	
-	
-	//sprintf(fps_c,"%u:%u",clicks,max_score );
-	
-	/*
-	if(clicks > 9)
-		put_str_15(153,160,fps_c,WHITE,240);
-	else
-		put_str_15(157,160,fps_c,WHITE,240);
-	*/
+	put_str_15(160,170,fps_c,MWHITE,240);	
 }
 
 void clear_screen(){
@@ -84,33 +60,29 @@ void clear_screen(){
 }
 
 
+
+void draw_selection(){
+	int color;
+	if(selected_cell > -1)
+		color = 44;
+	else
+		color = MWHITE;
+
+	rect_fast((pan_horiz+selector%5*zoom)*a_ratio,(pan_vert+(selector/5)*zoom),(pan_horiz+selector%5*zoom+zoom)*a_ratio,(pan_vert+(selector/5)*zoom+zoom),color);
+}
+
 void draw(){
-        int i,x,y,c;
-        char buf[5];
+        int i,x,y;
         clear_screen();
         
-		//rect_fill(0,zoom,(zoom)*a_ratio,zoom*2,current_color);
-		//rect_fill(0,zoom*2,(zoom)*a_ratio,zoom*3,old_color);
-		
 		x=pan_horiz;
 		y=pan_vert;
 
-        //for( i= 1; i<=100; i++){
 		for( i= 1; i<=25; i++){
-		
-				
-		
-				rect_fill(x*a_ratio,y,(x+zoom)*a_ratio,y+zoom,table[i-1]);
-				
-				if(i-1 == selector){
-					if(selected_cell > -1)
-					rect_fast(x*a_ratio,y,(x+zoom)*a_ratio-1,y+zoom-1,83);
-					else
-					rect_fast(x*a_ratio,y,(x+zoom)*a_ratio-1,y+zoom-1,BLACK);
-				}
-				
-				
-            //    if(i%10 == 0){
+
+			rect_fill(x*a_ratio,y,(x+zoom)*a_ratio,y+zoom,table[i-1]);
+			rect_fast(x*a_ratio,y,(x+zoom)*a_ratio,y+zoom,BLACK);
+
 				if(i%5 == 0){
                         y += zoom;
                         x = pan_horiz;
@@ -118,58 +90,27 @@ void draw(){
                         x += zoom;
                 }
 				
-				
         }
-		
+		draw_selection();
 		print_score();
-		
-		/*
-		x=90;
-		y = 170;
-		for( i = 0; i<6;i++){
-			rect_fill(x*a_ratio,170,(x+15)*a_ratio,185,colors[i]);
-			x +=15;
-		}
-		
-		RestrictMousePtr(0,0,318,197);
-		GetMouseStatus();
-		put_str_15(GetPosX(),GetPosY(),"m",WHITE,240);
-		
-		print_score();
-		*/
-		
-		//print_score();
-		
-		
-		
 }
 
 void init_table(){
 	int i;
-	//for (i = 0; i<100;i++){
-	
-	for (i = 0; i<25;i++){
-		
-	
-	
+	for (i = 0; i<24;i++){
 		table[i] = colors[random(5)];
-	//	draw();
-//		show_buffer();
-	//	delay(60);
+		draw();
+		show_buffer();
+		delay(60);
 	}
 	
-	
-	
-	table[3] = colors[2];
-	//table[0] = colors[2];
-	table[8] = colors[2];
-	table[13] = colors[2];
-	table[18] = colors[2];
-	//table[20] = colors[2];
-	
-	
 	table[24] = 0;
-	
+/*
+	table[0] = colors[1];
+	table[1] = colors[1];
+	table[2] = colors[1];
+	table[3] = colors[1];
+*/	
 	line_found = -1;
 	col_found = -1;
 
@@ -203,123 +144,63 @@ int check_table_cols(){
 	return -1;
 }
 
+void flick_square(int x1, int y1, int x2, int y2,int cl){
+		int i=0;
+		int color;
+		while( i!=5){
+			color = color == cl ? MWHITE : cl;
+			
+			rect_fill(x1*a_ratio,y1,x2*a_ratio,y2,color);	
+			rect_fast(x1*a_ratio,y1,x2*a_ratio,y2,(color == cl?MWHITE:cl));	
+			show_buffer();
+			
+			if(color == cl)
+				delay(120);	
+			else
+				delay(60);	
+			i++;
+		}
+	
+}
+
 void replace_line(){
-/*
-	table[line_found] = 0;
-	table[line_found+1] = 0;
-	table[line_found+2] = 0;
-	table[line_found+3] = 0;
-		draw();
-		show_buffer();
-		delay(80);
-	table[line_found] = WHITE;
-	table[line_found+1] = WHITE;
-	table[line_found+2] = WHITE;
-	table[line_found+3] = WHITE;
-		draw();
-		show_buffer();
-		delay(150);
-	table[line_found] = 0;
-	table[line_found+1] = 0;
-	table[line_found+2] = 0;
-	table[line_found+3] = 0;
-		draw();
-		show_buffer();
-		delay(80);
-	table[line_found] = WHITE;
-	table[line_found+1] = WHITE;
-	table[line_found+2] = WHITE;
-	table[line_found+3] = WHITE;
-		draw();
-		show_buffer();
-		delay(150);
-	table[line_found] = 0;
-	table[line_found+1] = 0;
-	table[line_found+2] = 0;
-	table[line_found+3] = 0;
-		draw();
-		show_buffer();
-		delay(80);
-	table[line_found] = WHITE;
-	table[line_found+1] = WHITE;
-	table[line_found+2] = WHITE;
-	table[line_found+3] = WHITE;
-		draw();
-		show_buffer();
-		delay(150);	
-*/
+	int i,rnd;
+	flick_square((pan_horiz+line_found%5*zoom),(pan_vert+(line_found/5)*zoom), (pan_horiz+line_found%5*zoom + 4*zoom),(pan_vert+(line_found/5)*zoom)+zoom,table[line_found]);
 
-		//y=pan_vert;
-	//int line_no = line_found%5;	
-	rect_fast((pan_horiz+line_found%5*zoom)*a_ratio,(pan_vert+(line_found/5)*zoom), (pan_horiz+line_found%5*zoom + 4*zoom)*a_ratio,(pan_vert+(line_found/5)*zoom)+zoom,RED);		
-	show_buffer();
-	delay(120);	
-	rect_fast((pan_horiz+line_found%5*zoom)*a_ratio,(pan_vert+(line_found/5)*zoom), (pan_horiz+line_found%5*zoom + 4*zoom)*a_ratio,(pan_vert+(line_found/5)*zoom)+zoom,WHITE);
-	show_buffer();
-	delay(120);	
-	rect_fast((pan_horiz+line_found%5*zoom)*a_ratio,(pan_vert+(line_found/5)*zoom), (pan_horiz+line_found%5*zoom + 4*zoom)*a_ratio,(pan_vert+(line_found/5)*zoom)+zoom,RED);		
-	show_buffer();
-	delay(120);	
-	rect_fast((pan_horiz+line_found%5*zoom)*a_ratio,(pan_vert+(line_found/5)*zoom), (pan_horiz+line_found%5*zoom + 4*zoom)*a_ratio,(pan_vert+(line_found/5)*zoom)+zoom,WHITE);
-	show_buffer();
-	delay(120);	
-	rect_fast((pan_horiz+line_found%5*zoom)*a_ratio,(pan_vert+(line_found/5)*zoom), (pan_horiz+line_found%5*zoom + 4*zoom)*a_ratio,(pan_vert+(line_found/5)*zoom)+zoom,RED);		
-	show_buffer();
-	delay(120);	
-	rect_fast((pan_horiz+line_found%5*zoom)*a_ratio,(pan_vert+(line_found/5)*zoom), (pan_horiz+line_found%5*zoom + 4*zoom)*a_ratio,(pan_vert+(line_found/5)*zoom)+zoom,WHITE);
-	show_buffer();
-	delay(120);	
-	rect_fast((pan_horiz+line_found%5*zoom)*a_ratio,(pan_vert+(line_found/5)*zoom), (pan_horiz+line_found%5*zoom + 4*zoom)*a_ratio,(pan_vert+(line_found/5)*zoom)+zoom,RED);		
-	show_buffer();
-	delay(120);	
-	rect_fast((pan_horiz+line_found%5*zoom)*a_ratio,(pan_vert+(line_found/5)*zoom), (pan_horiz+line_found%5*zoom + 4*zoom)*a_ratio,(pan_vert+(line_found/5)*zoom)+zoom,WHITE);
-	show_buffer();
-	delay(120);	
-
-	table[line_found] = colors[random(5)];
+	for(i = 0; i<4;i++){
+		table[line_found+i] = colors[random(5)];
 		draw();
 		show_buffer();
-		delay(60);
-	table[line_found+1] = colors[random(5)];
-			draw();
-		show_buffer();
-		delay(60);
-	table[line_found+2] = colors[random(5)];
-			draw();
-		show_buffer();
-		delay(60);
-	table[line_found+3] = colors[random(5)];
-			draw();
-		show_buffer();
-		delay(60);
+		delay(120);
+	}
+	
 	line_found = -1;
 }
 
 void replace_col(){
-
-	rect_fast((pan_horiz+col_found%5*zoom)*a_ratio,pan_vert+(col_found>4?zoom:0), (pan_horiz+col_found%5*zoom+zoom)*a_ratio,pan_vert+4*zoom+(col_found>4?zoom:0),RED);		
-	show_buffer();
-	delay(2000);	
-
-	table[col_found] = colors[random(5)];
-			draw();
+	int i;
+	flick_square((pan_horiz+col_found%5*zoom),pan_vert+(col_found>4?zoom:0), (pan_horiz+col_found%5*zoom+zoom),pan_vert+4*zoom+(col_found>4?zoom:0),table[col_found]);		
+	for(i=0;i<4;i++){
+		table[col_found+(i*5)] = colors[random(5)];
+		draw();
 		show_buffer();
-		delay(60);
-	table[col_found+5] = colors[random(5)];
-			draw();
-		show_buffer();
-		delay(60);
-	table[col_found+10] = colors[random(5)];
-			draw();
-		show_buffer();
-		delay(60);
-	table[col_found+15] = colors[random(5)];
-			draw();
-		show_buffer();
-		delay(60);
+		delay(120);
+	}
 	col_found = -1;
 }
 
+void check(){
+	line_found = check_table_lines();
+	if(line_found > -1){
+		replace_line();
+		clicks++;
+	}
+	col_found = check_table_cols();
+	if(col_found > -1){
+		replace_col();
+		clicks++;
+	}
+}
 
 void move_cell(int pos){
 	
@@ -350,21 +231,11 @@ void move_cell(int pos){
 			}	
 		break;
 	}
+	
+	draw();
+	show_buffer();
+	
 	selected_cell = -1;
-	
-	
-	
-	//delay(150);
-	line_found = check_table_lines();
-	if(line_found > -1){
-		replace_line();
-		clicks++;
-	}
-	col_found = check_table_cols();
-	if(col_found > -1){
-		replace_col();
-		clicks++;
-	}
 	
 }
 
@@ -378,7 +249,7 @@ bool usr_input(){
 
 						while(get_key_status(SCAN_ENTER)){}
 							selected_cell = selector;
-							
+							check();
 						return true;
 					}
 					
@@ -391,6 +262,7 @@ bool usr_input(){
 						draw();	
 						show_buffer();
 						while(get_key_status(SCAN_LEFT_ARROW)){}
+						check();
 						return true;
 					}
 					
@@ -404,7 +276,7 @@ bool usr_input(){
 						draw();	
 						show_buffer();
 						while(get_key_status(SCAN_RIGHT_ARROW)){}
-						
+						check();
 						return true;
 					}
 					
@@ -418,6 +290,7 @@ bool usr_input(){
 						draw();	
 						show_buffer();
 						while(get_key_status(SCAN_UP_ARROW)){}
+						check();
 						return true;
 					}
 					
@@ -431,6 +304,7 @@ bool usr_input(){
 						draw();	
 						show_buffer();
 						while(get_key_status(SCAN_DOWN_ARROW)){}
+						check();
 						return true;
 					}
 					
@@ -441,6 +315,7 @@ int main(){
         initialize();
 		randomize(); 
 		init_table();
+		check();
                 while(1){
                  					
 					if(!usr_input())
