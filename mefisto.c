@@ -10,7 +10,7 @@
 #include "LVGA\\lvga.h"
 #include "LVGA\\keyb.h"
 #include "LVGA\\ini.h"
-#include "LVGA\\flog.h"
+
 
 #define MIN(a,b) (((a)<(b))?(a):(b))
 
