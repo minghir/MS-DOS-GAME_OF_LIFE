@@ -8,6 +8,7 @@
 
 #include "LVGA\\lvga.h"
 #include "LVGA\\keyb.h"
+#include "LVGA\\ini.h"
 
 #define LEFT 0
 #define RIGHT 1
@@ -16,13 +17,18 @@
 
 #define MWHITE  29
 
+int DELAY = 2;
+
+#define SHORT_DELAY DELAY * 30
+#define LONG_DELAY DELAY * 60
+
 bool hard_mode = true;
 
 int zoom = 30;
 float a_ratio = 1.2;
 
 int colors[6];
-int table[100];
+int table[25];
 
 int pan_vert = 13;
 int pan_horiz = 60;
@@ -97,7 +103,7 @@ void init_table(){
 		table[i] = colors[random(5)];
 		draw();
 		show_buffer();
-		delay(60);
+		delay(SHORT_DELAY);
 	}
 	
 	table[24] = 0;
@@ -120,17 +126,19 @@ void flick_square(int x1, int y1, int x2, int y2,int cl){
 		while( i!=6){
 			color = color == cl ? flick_color : cl;
 			
-			rect_fill(x1*a_ratio,y1,x2*a_ratio,y2,color);	
+			//rect_fill(x1*a_ratio,y1,x2*a_ratio,y2,color);	
+			rect_fast((pan_horiz+selector%5*zoom)*a_ratio,(pan_vert+(selector/5)*zoom),(pan_horiz+selector%5*zoom+zoom)*a_ratio,(pan_vert+(selector/5)*zoom+zoom),0);
 			rect_fast(x1*a_ratio,y1,x2*a_ratio,y2,(color == cl?flick_color:cl));	
 			show_buffer();
 			
 			if(color == cl)
-				delay(120);	
+				delay(LONG_DELAY);	
 			else
-				delay(60);	
+				delay(SHORT_DELAY);	
 			i++;
 		}
-	
+		rect_fast((pan_horiz+selector%5*zoom)*a_ratio,(pan_vert+(selector/5)*zoom),(pan_horiz+selector%5*zoom+zoom)*a_ratio,(pan_vert+(selector/5)*zoom+zoom),MWHITE);
+		show_buffer();
 }
 
 void replace_line(){
@@ -143,13 +151,13 @@ void replace_line(){
 	}
 	draw();
 	show_buffer();
-	delay(120);
+	delay(LONG_DELAY);
 	
 	for(i = 0; i<no;i++){
 		table[line_found+i] = colors[random(5)];
 		draw();
 		show_buffer();
-		delay(120);
+		delay(LONG_DELAY);
 	}
 	
 	line_found = -1;
@@ -167,13 +175,13 @@ void replace_col(){
 	
 	draw();
 	show_buffer();
-	delay(120);
+	delay(LONG_DELAY);
 	
 	for(i=0;i<no;i++){
 		table[col_found+(i*5)] = colors[random(5)];
 		draw();
 		show_buffer();
-		delay(120);
+		delay(LONG_DELAY);
 	}
 	col_found = -1;
 	five_found = false;
@@ -249,38 +257,100 @@ void check(){
 	}
 }
 
+void animate_move_cell(int pos,int actual_cell,int new_cell){
+
+		int start_x, start_y, end_x, end_y, x, y;
+		
+		if(new_cell < 0 || new_cell > 24)
+			return;
+			
+		
+		start_x = (pan_horiz+actual_cell%5*zoom);
+		start_y = (pan_vert+(actual_cell/5)*zoom);
+		end_x = (pan_horiz+new_cell%5*zoom);
+		end_y = (pan_vert+(new_cell/5)*zoom);
+
+		x = start_x;
+		y = start_y;
+		
+		while(x != end_x || y != end_y){
+			
+			rect_fill(x*a_ratio,y,(x+zoom)*a_ratio,y+zoom,0);
+			
+			switch(pos){
+				case LEFT:
+					x -= 1;
+					y = end_y;
+				break;
+				
+				case RIGHT:
+					x += 1;
+					y = end_y;
+				break;
+				
+				case UP:
+					x = end_x;
+					y -= 1;
+				break;
+				
+				case DOWN:
+					x = end_x;
+					y += 1;
+				break;
+			}
+			delay(DELAY);
+			
+			rect_fill(x*a_ratio,y,(x+zoom)*a_ratio,y+zoom,table[actual_cell]);
+			show_buffer();
+		}	
+
+}
+
 void move_cell(int pos){
 	
 	switch(pos){
 		case LEFT:
+			if( selected_cell - 1  < 0) return;
 			if(table[selected_cell - 1] == 0){
 				table[selected_cell - 1] = table[selected_cell];
+				
+				animate_move_cell(pos,selected_cell,selected_cell - 1);
+				
 				table[selected_cell] = 0;
 			}	
 		break;
 		
 		case RIGHT:
+			if( selected_cell + 1  > 24 ) return;
 			if(table[selected_cell + 1] == 0){
 				table[selected_cell + 1] = table[selected_cell];
+				
+				animate_move_cell(pos,selected_cell,selected_cell + 1);
+				
 				table[selected_cell] = 0;
 			}	
 		break;
 		case UP:
+			if( selected_cell - 5  < 0 ) return;
 			if(table[selected_cell - 5] == 0){
 				table[selected_cell - 5] = table[selected_cell];
+				
+				animate_move_cell(pos,selected_cell,selected_cell - 5);
+				
 				table[selected_cell] = 0;
 			}	
 		break;
 		case DOWN:
+			if( selected_cell + 5  > 24 ) return;
 			if(table[selected_cell + 5] == 0){
 				table[selected_cell + 5] = table[selected_cell];
+				
+				animate_move_cell(pos,selected_cell,selected_cell + 5);
+				
 				table[selected_cell] = 0;
 			}	
 		break;
 	}
-	
-	draw();
-	show_buffer();
 	
 	selected_cell = -1;
 	
@@ -289,14 +359,15 @@ void move_cell(int pos){
 bool usr_input(){
 
 					if(get_key_status(SCAN_Q) || get_key_status(SCAN_ESC)){
-						while(get_key_status(SCAN_ESC));
-						while(get_key_status(SCAN_Q));
                         return false;
 					}
 					
 					if( get_key_status(SCAN_ENTER) ){
-
-						while(get_key_status(SCAN_ENTER)){}
+					
+						if(table[selector] == 0)
+							return true;
+						
+						while(get_key_status(SCAN_ENTER) );
 							if(selected_cell > -1)
 								selected_cell = -1;
 							else
@@ -306,6 +377,7 @@ bool usr_input(){
 					}
 					
 					if(get_key_status(SCAN_LEFT_ARROW)){
+						if(selector%5 == 0) return true;
 						if(selector > 0)
 							selector--;
 
@@ -319,6 +391,7 @@ bool usr_input(){
 					}
 					
 					if(get_key_status(SCAN_RIGHT_ARROW)){
+						if(selector%5 == 4) return true;
 						if(selector < 24 )
 							selector++;
 							
@@ -363,33 +436,28 @@ bool usr_input(){
 	return true;
 }
 
-int main(int argc, char *argv[]){
-
-	
-		if(argc > 1)
-			if(atoi(argv[1])==1)
-				hard_mode = false;
-			else if(argv[1][0]=='h' || argv[1][0]=='?'){
-					printf("use:\n%s 1 for easy mode\n",argv[0]);
-					printf("%s ? for this message\n",argv[0]);
-					return 1;
-				}
-
-		initialize();
-		randomize(); 
-		init_table();
-		check();
-		
-			    while(1){
-					if(!usr_input())
-						break;
-					check();
-					draw();
-                    show_buffer();
-                }
+int main(){
 				
-                unhook_keyb_int();
-                delay(100);
-                exit_graphic();
-				return 1;
+	ini_t *config = ini_load("colorl.ini");
+	ini_sget(config, "colorl", "delay", "%d", &DELAY);
+	ini_sget(config, "colorl", "hard_mode", "%d", &hard_mode);
+	ini_free(config);				
+
+	initialize();
+	randomize(); 
+	init_table();
+	check();
+		
+	while(1){
+		if(!usr_input())
+			break;
+		check();
+		draw();
+        show_buffer();
+    }
+				
+	unhook_keyb_int();
+	delay(LONG_DELAY);
+	exit_graphic();
+	return 1;
 }
