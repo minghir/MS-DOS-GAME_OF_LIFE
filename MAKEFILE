@@ -14,9 +14,9 @@ LDIR = c:\app\tc\lib
 EXEFLAGS = -O -mc -I$(IDIR) -L$(LDIR)
 FLAGS = -O -mc -c -I$(IDIR) -L$(LDIR)
 
-SOURCES = lvga\keyb.c  lvga\lvga.c lvga\ini.c lvga\mouse.c
-OBJS =  keyb.obj lvga.obj ini.obj mouse.obj
-EXES1 = color.exe golvga.exe mefisto.exe flood.exe colorl.exe 
+SOURCES = lvga\keyb.c lvga\lvga.c lvga\ini.c lvga\mouse.c lvga\serial.c
+OBJS =  keyb.obj lvga.obj ini.obj mouse.obj serial.obj
+EXES1 = color.exe golvga.exe mefisto.exe flood.exe colorl.exe sprtst.exe
 #EXES2 = pongvga2.exe
 
 #all:  $(OBJS)  golvga.exe
@@ -25,6 +25,9 @@ all: $(OBJS) $(EXES1) $(EXES2)
 
 colorl.exe: colorl.c $(SOURCES)
         $(CC) $(EXEFLAGS) colorl.c $(OBJS)
+		
+sprtst.exe: sprtst.c $(SOURCES)
+        $(CC) $(EXEFLAGS) sprtst.c $(OBJS)
 
 golvga.exe: golvga.c $(SOURCES)
         $(CC) $(EXEFLAGS) golvga.c $(OBJS)
@@ -52,7 +55,10 @@ lvga.obj: lvga\lvga.c
 
 ini.obj: lvga\ini.c
         $(CC) $(FLAGS) lvga\ini.c
-
+		
+serial.obj: lvga\serial.c
+        $(CC) $(FLAGS) lvga\serial.c
+		
 clean:
         del *.obj
         del *.exe
