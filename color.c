@@ -10,7 +10,6 @@
 #include "LVGA\\lvga.h"
 #include "LVGA\\keyb.h"
 #include "LVGA\\ini.h"
-#include "LVGA\\flog.h"
 
 
 #define MAX_ZOOM 5
@@ -87,7 +86,7 @@ int main(){
         initialize();
 
                 while(1){
-                                if(get_key_status(q_Key)){
+                                if(get_key_status(SCAN_Q)){
                                         break;
                                 }
 
