@@ -368,6 +368,7 @@ bool usr_input(){
 							return true;
 						
 						while(get_key_status(SCAN_ENTER) );
+						
 							if(selected_cell > -1)
 								selected_cell = -1;
 							else
@@ -385,7 +386,7 @@ bool usr_input(){
 							move_cell(LEFT);
 						draw();	
 						show_buffer();
-						while(get_key_status(SCAN_LEFT_ARROW)){}
+						while(get_key_status(SCAN_LEFT_ARROW));
 						
 						return true;
 					}
@@ -400,7 +401,7 @@ bool usr_input(){
 						
 						draw();	
 						show_buffer();
-						while(get_key_status(SCAN_RIGHT_ARROW)){}
+						while(get_key_status(SCAN_RIGHT_ARROW));
 						
 						return true;
 					}
@@ -428,7 +429,7 @@ bool usr_input(){
 							
 						draw();	
 						show_buffer();
-						while(get_key_status(SCAN_DOWN_ARROW)){}
+						while(get_key_status(SCAN_DOWN_ARROW));
 						
 						return true;
 					}

@@ -98,7 +98,7 @@ void draw(){
 			x +=15;
 		}
 		
-		RestrictMousePtr(0,0,318,197);
+		RestrictMousePtr(0,0,317,196);
 		GetMouseStatus();
 		put_str_15(GetPosX(),GetPosY(),"m",WHITE,240);
 		
@@ -187,37 +187,43 @@ bool usr_input(){
 					}
 					
 					if(get_key_status(SCAN_R) || get_key_status(SCAN_ENTER)){
+						while(get_key_status(SCAN_R) || get_key_status(SCAN_ENTER));
                         init_table();
-						delay(300);
 						return true;
 					}
 					
 					if(get_key_status(SCAN_1)){
+						while(get_key_status(SCAN_1));
 						change_color(colors[0]);
 						return true;
 					}
 					
 					if(get_key_status(SCAN_2)){
+						while(get_key_status(SCAN_2));
 						change_color(colors[1]);
 						return true;
 					}
 					
 					if(get_key_status(SCAN_3)){
+						while(get_key_status(SCAN_3));
 						change_color(colors[2]);
 						return true;
 					}
 					
 					if(get_key_status(SCAN_4)){
+					while(get_key_status(SCAN_4));
 						change_color(colors[3]);
 						return true;
 					}
 					
 					if(get_key_status(SCAN_5)){
+						while(get_key_status(SCAN_5));
 						change_color(colors[4]);
 						return true;
 					}
 					
 					if(get_key_status(SCAN_6)){
+						while(get_key_status(SCAN_6));
 						change_color(colors[5]);
 						return true;
 					}
